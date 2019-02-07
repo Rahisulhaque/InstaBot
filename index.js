@@ -34,13 +34,34 @@ const puppeteer = require('puppeteer');
 
   await page.evaluate(() => {
     document.querySelector('[type=submit]._0mzm-').click()
-  q  });
-  await page.waitFor(5000);
+    });
+  //await page.waitFor(5000);
   
+  //wait for couple of seconds
+
+  await page.waitFor(() => 
+    document.querySelector('[placeholder=Search]')
+  );
+
+  await page.evaluate(() => 
+    document.querySelector('[href="/accounts/activity/"]').click()
+    );
   // 
-  //await page.evaluate(() => document.querySelector('._0mzm-').click(), );
+  await page.waitFor(() => document.querySelectorAll('[type=button]._0mzm-').length);
+ //following the followers
+ await page.evaluate(() => {
+   const elements = document.querySelectorAll('[role=button]._0mzm-');
+
+   elements.forEach( element => {
+     if( element.innerText === 'Follow'){
+       element.click();
+     }
+   });
+ })
+
+  await pafe
   await page.waitFor(2000);
-  await browser.close();
+  //await browser.close();
   await page.waitFor(10000);
 })();
 
